@@ -108,7 +108,21 @@ var updateTask = (0, asyncWrapper_1.default)(function (req, res, next) { return 
     });
 }); });
 exports.updateTask = updateTask;
-var deleteTask = function (req, res) {
-    res.status(200).send("deleteTask");
-};
+var deleteTask = (function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var taskId, task;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                taskId = req.params.id;
+                return [4, Task_1.default.findOneAndDelete({ _id: taskId })];
+            case 1:
+                task = _a.sent();
+                if (!task) {
+                    return [2, next((0, customError_1.createCustomError)("No task with id ".concat(taskId), 404))];
+                }
+                res.status(200).json({ task: task });
+                return [2];
+        }
+    });
+}); });
 exports.deleteTask = deleteTask;
